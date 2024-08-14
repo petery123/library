@@ -26,8 +26,9 @@ function addBookToLibrary(book) {
 }
 
 function showBooks(){
-    for (let book of library){
-        let card = getCard(book);
+    for (let i = 0; i < library.length; i++){
+        let card = getCard(library[i]);
+        card.setAttribute("data-index", i);
         bookContainer.appendChild(card);
     }
 }
@@ -40,7 +41,7 @@ function getCard(book){
     imgFiller.className = "imgFiller"
     imgFiller.style.backgroundColor = getRandomColor();
 
-    let readStatus = document.createElement("div");
+    let readStatus = document.createElement("button");
     readStatus.className = "readStatus";
     readStatus.classList.add(book.readStatus);
     readStatus.textContent = book.readStatus;
@@ -65,13 +66,13 @@ function getCard(book){
     infoBottomLeft.className = "infoBottomLeft";
     infoBottomLeft.append(author, pages);
 
-    let toggleRead = document.createElement("button");
-    toggleRead.className = "toggleRead";
-    toggleRead.textContent = "Toggle Read";
+    let deleteBook = document.createElement("button");
+    deleteBook.className = "deleteBook";
+    deleteBook.textContent = "Delete";
 
     let infoBottom = document.createElement("div");
     infoBottom.className = "infoBottom";
-    infoBottom.append(infoBottomLeft, toggleRead);
+    infoBottom.append(infoBottomLeft, deleteBook);
 
     info.append(title, infoBottom);
     card.append(imgFiller, info);
@@ -105,6 +106,7 @@ submitBtn.addEventListener("click", (event) =>{
         addBookDialog.close();
         form.reset();
         let card = getCard(book);
+        card.setAttribute("data-index", library.length--);
         bookContainer.appendChild(card);
     }else{
         alert("Enter all book details");
