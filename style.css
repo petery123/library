@@ -1,0 +1,50 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container{
+    margin: 0 300px;
+}
+
+.library{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card{
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 2px 3px 20px 2px rgb(0 0 0 / 16%)
+}
+
+li{
+    list-style: none;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    text-align: center;
+    margin-block: 40px;
+}
+
+.imgFiller{
+    height: 230px;
+}
+
+.info{
+    margin: 0 20px;
+}
+
+.title{
+    margin-bottom: 0;
+}
+
+.author{
+    margin-top: 5px;
+}
