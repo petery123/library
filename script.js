@@ -66,13 +66,14 @@ function getCard(book){
     infoBottomLeft.className = "infoBottomLeft";
     infoBottomLeft.append(author, pages);
 
-    let deleteBook = document.createElement("button");
-    deleteBook.className = "deleteBook";
-    deleteBook.textContent = "Delete";
+    let deleteBookBtn = document.createElement("button");
+    deleteBookBtn.className = "deleteBookBtn";
+    deleteBookBtn.textContent = "Delete";
+    deleteBookBtn.addEventListener("click", deleteBook)
 
     let infoBottom = document.createElement("div");
     infoBottom.className = "infoBottom";
-    infoBottom.append(infoBottomLeft, deleteBook);
+    infoBottom.append(infoBottomLeft, deleteBookBtn);
 
     info.append(title, infoBottom);
     card.append(imgFiller, info);
@@ -106,7 +107,7 @@ submitBtn.addEventListener("click", (event) =>{
         addBookDialog.close();
         form.reset();
         let card = getCard(book);
-        card.setAttribute("data-index", library.length--);
+        card.setAttribute("data-index", library.length-1);
         bookContainer.appendChild(card);
     }else{
         alert("Enter all book details");
@@ -121,3 +122,11 @@ addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, true));
 addBookToLibrary(new Book("The Catcher in the Rye", "J.D. Salinger", 214, false));
 
 showBooks();
+
+function deleteBook(event){
+    let card = event.target.parentElement.parentElement.parentElement;
+    let indexToRemove = card.getAttribute('data-index');
+    library.splice(indexToRemove, 1);
+    bookContainer.textContent = "";
+    showBooks();  
+}
