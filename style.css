@@ -7,22 +7,26 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.container{
+body{
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: 300px 1fr;
     grid-template-rows: auto 1fr;
+    height: 100vh;
 }
 
 .library{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
+    margin: 20px;
+    height: min-content;
 }
 
 .card{
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 2px 3px 20px 2px rgb(0 0 0 / 16%)
+    box-shadow: 2px 3px 20px 2px rgb(0 0 0 / 16%);
+    height: min-content;
 }
 
 li{
@@ -30,7 +34,6 @@ li{
 }
 
 ul{
-    margin: 20px;
     padding: 0;
 }
 
@@ -115,6 +118,7 @@ h2{
     background-color: var(--dark-purple);
     height: 25px;
     margin-top: auto;
+    cursor: pointer;
 }
 
 .toggleRead:hover{
@@ -123,4 +127,58 @@ h2{
 
 .sidebar{
     background-color: var(--dark-purple);
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background-color: #4cae4c;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
 }
