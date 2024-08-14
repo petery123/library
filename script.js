@@ -1,5 +1,14 @@
 const library = [];
 const bookContainer = document.querySelector(".library");
+const addBookBtn = document.querySelector("#addBook");
+const addBookDialog = document.querySelector("dialog");
+const closeDialogBtn = document.querySelector(".close-btn");
+const submitBtn = document.querySelector("#submitBtn");
+const form = document.querySelector('#bookForm');
+const titleInput = document.querySelector('#title');
+const authorInput = document.querySelector('#author');
+const pagesInput = document.querySelector('#pages');
+const readCheckbox = document.querySelector('#read');
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -70,19 +79,37 @@ function getCard(book){
     return card;
 }
 
-const colorPalette = [
-    '#907F9F',
-    '#4B2142',
-    '#E6E6FA', 
-];
-
-// Function to get a random color from the palette
 function getRandomColor() {
-    // Generate a random index to pick a color from the palette array
+    const colorPalette = [
+        '#907F9F',
+        '#4B2142',
+        '#E6E6FA', 
+    ];
     const randomIndex = Math.floor(Math.random() * colorPalette.length);
     return colorPalette[randomIndex];
 };
 
+addBookBtn.addEventListener("click", () => {
+    addBookDialog.showModal();
+});
+  
+closeDialogBtn.addEventListener("click", () => {
+    addBookDialog.close();
+});
+
+submitBtn.addEventListener("click", (event) =>{
+    event.preventDefault();
+    if (form.checkValidity()){
+        let book = new Book(titleInput.value, authorInput.value, pagesInput.value, readCheckbox.checked);
+        addBookToLibrary(book);
+        addBookDialog.close();
+        form.reset();
+        let card = getCard(book);
+        bookContainer.appendChild(card);
+    }else{
+        alert("Enter all book details");
+    }  
+});
 
 addBookToLibrary(new Book("To Kill a Mockingbird", "Harper Lee", 281, true));
 addBookToLibrary(new Book("1984", "George Orwell", 328, false));
@@ -90,9 +117,5 @@ addBookToLibrary(new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, true))
 addBookToLibrary(new Book("Moby Dick", "Herman Melville", 635, false));
 addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, true));
 addBookToLibrary(new Book("The Catcher in the Rye", "J.D. Salinger", 214, false));
-addBookToLibrary(new Book("The Hobbit", "J.R.R. Tolkien", 310, true));
-addBookToLibrary(new Book("War and Peace", "Leo Tolstoy", 1225, false));
-addBookToLibrary(new Book("The Odyssey", "Homer", 541, true));
-addBookToLibrary(new Book("Crime and Punishment", "Fyodor Dostoevsky", 671, false));
 
 showBooks();
