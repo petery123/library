@@ -5,9 +5,10 @@ function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read? "read" : "not read";
+    this.read = read;
+    this.readStatus = read? "read" : "unread";
     this.info = function() {
-       return (`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`)
+       return (`${this.title} by ${this.author}, ${this.pages} pages, ${this.readStatus}`)
     };
 }
 
@@ -30,6 +31,12 @@ function getCard(book){
     imgFiller.className = "imgFiller"
     imgFiller.style.backgroundColor = getRandomColor();
 
+    let readStatus = document.createElement("div");
+    readStatus.className = "readStatus";
+    readStatus.classList.add(book.readStatus);
+    readStatus.textContent = book.readStatus;
+    imgFiller.appendChild(readStatus);
+
     let info = document.createElement("div");
     info.className = "info";
 
@@ -45,17 +52,28 @@ function getCard(book){
     pages.className = "pages";
     pages.textContent = `${book.pages} pages`;
 
-    info.append(title, author, pages);
+    let infoBottomLeft = document.createElement("div");
+    infoBottomLeft.className = "infoBottomLeft";
+    infoBottomLeft.append(author, pages);
+
+    let toggleRead = document.createElement("button");
+    toggleRead.className = "toggleRead";
+    toggleRead.textContent = "Toggle Read";
+
+    let infoBottom = document.createElement("div");
+    infoBottom.className = "infoBottom";
+    infoBottom.append(infoBottomLeft, toggleRead);
+
+    info.append(title, infoBottom);
     card.append(imgFiller, info);
 
     return card;
 }
 
 const colorPalette = [
-    '#FADCD9', // Soft Pink
-    '#FCE4D6', // Light Peach
-    '#D0E2FF', // Pale Blue
-    '#E6E6FA', // Lavender
+    '#907F9F',
+    '#4B2142',
+    '#E6E6FA', 
 ];
 
 // Function to get a random color from the palette
