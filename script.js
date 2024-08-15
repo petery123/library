@@ -4,11 +4,11 @@ const addBookBtn = document.querySelector("#addBook");
 const addBookDialog = document.querySelector("dialog");
 const closeDialogBtn = document.querySelector(".close-btn");
 const submitBtn = document.querySelector("#submitBtn");
-const form = document.querySelector('#bookForm');
-const titleInput = document.querySelector('#title');
-const authorInput = document.querySelector('#author');
-const pagesInput = document.querySelector('#pages');
-const readCheckbox = document.querySelector('#read');
+const form = document.querySelector("#bookForm");
+const titleInput = document.querySelector("#title");
+const authorInput = document.querySelector("#author");
+const pagesInput = document.querySelector("#pages");
+const readCheckbox = document.querySelector("#read");
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -45,6 +45,7 @@ function getCard(book){
     readStatus.className = "readStatus";
     readStatus.classList.add(book.readStatus);
     readStatus.textContent = book.readStatus;
+    readStatus.addEventListener("click", changeReadStatus);
     imgFiller.appendChild(readStatus);
 
     let info = document.createElement("div");
@@ -83,9 +84,9 @@ function getCard(book){
 
 function getRandomColor() {
     const colorPalette = [
-        '#907F9F',
-        '#4B2142',
-        '#E6E6FA', 
+        "#907F9F",
+        "#4B2142",
+        "#E6E6FA", 
     ];
     const randomIndex = Math.floor(Math.random() * colorPalette.length);
     return colorPalette[randomIndex];
@@ -114,6 +115,36 @@ submitBtn.addEventListener("click", (event) =>{
     }  
 });
 
+function deleteBook(event){
+    let card = event.target.parentElement.parentElement.parentElement;
+    let indexToRemove = card.getAttribute("data-index");
+    library.splice(indexToRemove, 1);
+    bookContainer.textContent = "";
+    showBooks();  
+};
+
+Book.prototype.toggleRead = function() {
+    let newReadStatus = !this.read;
+    this.read = newReadStatus;
+};
+
+function changeReadStatus(event){
+    console.log(event.target);
+    let card = event.target.parentElement.parentElement;
+    let indexToChange = card.getAttribute("data-index");
+    let book = library[indexToChange];
+    if (book.read){
+        event.target.classList.remove("read");
+        event.target.classList.add("unread");
+        event.target.textContent = "unread";
+    }else{
+        event.target.classList.remove("unread");
+        event.target.classList.add("read");
+        event.target.textContent = "read";
+    }
+    book.toggleRead();
+}
+
 addBookToLibrary(new Book("To Kill a Mockingbird", "Harper Lee", 281, true));
 addBookToLibrary(new Book("1984", "George Orwell", 328, false));
 addBookToLibrary(new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, true));
@@ -123,10 +154,3 @@ addBookToLibrary(new Book("The Catcher in the Rye", "J.D. Salinger", 214, false)
 
 showBooks();
 
-function deleteBook(event){
-    let card = event.target.parentElement.parentElement.parentElement;
-    let indexToRemove = card.getAttribute('data-index');
-    library.splice(indexToRemove, 1);
-    bookContainer.textContent = "";
-    showBooks();  
-}
