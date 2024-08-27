@@ -10,15 +10,17 @@ const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
 const readCheckbox = document.querySelector("#read");
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.readStatus = read? "read" : "unread";
-    this.info = function() {
-       return (`${this.title} by ${this.author}, ${this.pages} pages, ${this.readStatus}`)
-    };
+class Book {
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    get readStatus(){
+        return this.read? "read" : "unread";
+    }
 }
 
 function addBookToLibrary(book) {
