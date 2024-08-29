@@ -91,6 +91,7 @@ const libraryDisplayControl = (function() {
     }
 
     function showBooks(){
+        bookContainer.textContent = "";
         const library = libraryControl.library;
         for (let i = 0; i < library.length; i++){
             let card = cardFactory(library[i]);
@@ -104,7 +105,6 @@ const libraryDisplayControl = (function() {
         let card = event.target.parentElement.parentElement.parentElement;
         let indexToRemove = card.getAttribute("data-index");
         library.splice(indexToRemove, 1);
-        bookContainer.textContent = "";
         showBooks();  
     };
 
